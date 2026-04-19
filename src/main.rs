@@ -42,6 +42,19 @@ impl eframe::App for ProtRustApp {
                     ui.selectable_value(&mut self.selected_model, EsmModel::Esm2T12_35M, "ESM2 12.35M");
                     ui.selectable_value(&mut self.selected_model, EsmModel::Esm2T33_650M, "ESM2 33.650M");
             });
+            if ui.button("Browse FASTA").clicked() {
+                let path = rfd::FileDialog::new()
+                    .add_filter("FASTA", &["fasta", "fa"])
+                    .pick_file();
+                if let Some(path) = path {
+                    self.fasta_path = Some(path.display().to_string());
+                }
+            }
+            if let Some(path) = &self.fasta_path {
+                ui.label(path);
+            } else {
+                ui.label("No file selected");
+            }
         });
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.label(self.model_name());
