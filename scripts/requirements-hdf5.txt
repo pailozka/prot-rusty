@@ -1,0 +1,3 @@
+# Converter only; no PyTorch, model weights, or GPU libraries.
+h5py>=3.8,<4
+numpy>=1.24,<3
